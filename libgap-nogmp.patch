@@ -1,0 +1,51 @@
+diff -up libgap-4.6.5/configure.ac.orig libgap-4.6.5/configure.ac
+--- libgap-4.6.5/configure.ac.orig	2013-10-08 14:17:30.690574102 -0300
++++ libgap-4.6.5/configure.ac	2013-10-08 14:17:41.199574504 -0300
+@@ -28,14 +28,16 @@ AC_ARG_WITH(gmp,
+     This tells configure where to find the GMP library and headers.
+     e.g. --with-gmp=/usr/local or --with-gmp=/usr]))]
+ )
+-if test "x$GMP_PREFIX" != x ; then
+-  GMP_LIBS=" -L${GMP_PREFIX}/lib"
+-  GMP_CFLAGS=" -I${GMP_PREFIX}/include"
+-else
+-  GMP_LIBS=""
+-  GMP_CFLAGS=""
++if test "x$GMP_PREFIX" != xno ; then
++  if test "x$GMP_PREFIX" != x  ; then
++    GMP_LIBS=" -L${GMP_PREFIX}/lib"
++    GMP_CFLAGS=" -I${GMP_PREFIX}/include"
++  else
++    GMP_LIBS=""
++    GMP_CFLAGS=""
++  fi
++  GMP_LIBS="${GMP_LIBS} -lgmp"
+ fi
+-GMP_LIBS="${GMP_LIBS} -lgmp"
+ AC_SUBST(GMP_LIBS)
+ AC_SUBST(GMP_CFLAGS)
+ 
+diff -up libgap-4.6.5/test/Makefile.am.orig libgap-4.6.5/test/Makefile.am
+--- libgap-4.6.5/test/Makefile.am.orig	2013-10-08 14:17:19.256573664 -0300
++++ libgap-4.6.5/test/Makefile.am	2013-10-08 14:17:53.477574974 -0300
+@@ -7,17 +7,17 @@ check_PROGRAMS = test shell error_handle
+ test_SOURCES = test.c
+ test_CFLAGS = @GMP_CFLAGS@
+ test_LDADD = @top_builddir@/src/libgap.la
+-test_LDFLAGS = -lgmp -lm
++test_LDFLAGS = @GMP_LIBS@ -lm
+ 
+ shell_SOURCES = shell.c
+ shell_CFLAGS = @GMP_CFLAGS@
+ shell_LDADD = @top_builddir@/src/libgap.la
+-shell_LDFLAGS = -lgmp -lm
++shell_LDFLAGS = @GMP_LIBS@ -lm
+ 
+ error_handler_SOURCES = error_handler.c
+ error_handler_CFLAGS = @GMP_CFLAGS@
+ error_handler_LDADD = @top_builddir@/src/libgap.la
+-error_handler_LDFLAGS = -lgmp -lm
++error_handler_LDFLAGS = @GMP_LIBS@ -lm
+ 
+ dist-hook:
+ 	echo '*** /test dist-hook *******************************'
