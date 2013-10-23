@@ -22,7 +22,7 @@ also where the spkg metadata is tracked.
 
 %package	devel
 Summary:	Development files for %{name}
-Group:		Development/Libraries
+
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
