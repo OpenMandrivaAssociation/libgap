@@ -1,6 +1,6 @@
 Name:		libgap
-Version:	4.6.5
-Release:	3%{?dist}
+Version:	4.7.2
+Release:	1.0%{?dist}
 License:	GPLv2+
 
 Summary:	C library version of the GAP kernel
@@ -10,8 +10,7 @@ Source1:	%{name}.rpmlintrc
 BuildRequires:	libtool
 BuildRequires:	gap-devel
 BuildRequires:	gap-libs
-Patch0:		%{name}-arch.patch
-Patch1:		%{name}-nogmp.patch
+Patch0:		%{name}-nogmp.patch
 
 %description
 LibGAP -- a C library version of the GAP kernel (http://www.gap-system.org)
@@ -32,7 +31,6 @@ for %{name}.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 # due to patching configure.ac in patch1
 autoreconf -ifs
 
@@ -61,3 +59,26 @@ make check
 %files		devel
 %{_includedir}/gap
 %{_libdir}/%{name}.so
+
+%changelog
+* Wed Jan 15 2014 Jerry James <loganjerry@gmail.com> - 4.7.2-1
+- New upstream release
+- Drop upstreamed -arch patch
+
+* Tue Oct  8 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 4.6.5-3
+- Only run x86 specific asm code on x86 (#919703#c17)
+- Do not link to gmp as gmp interface is disabled (#919703#c17)
+
+* Sat Oct  5 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 4.6.5-2
+- Make CFLAGS an environment variable (#919703#c12)
+- Add gap-libs to build requires (#919703#c12)
+- Make package exclusive arch x86.
+
+* Sat Oct  5 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 4.6.5-1
+- Update to version matching rawhide gap (#919703#c8)
+
+* Sat Sep 14 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 4.6.4.p0-1
+- Update to latest version in bz (#919703#c4)
+
+* Fri Feb 22 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 4.5.7-1
+- Initial libgap spec.
