@@ -1,6 +1,6 @@
 Name:		libgap
-Version:	4.7.2
-Release:	1.0%{?dist}
+Version:	4.8.3
+Release:	1
 License:	GPLv2+
 
 Summary:	C library version of the GAP kernel
