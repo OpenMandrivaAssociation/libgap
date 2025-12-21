@@ -7,6 +7,11 @@ Summary:	C library version of the GAP kernel
 URL:		https://bitbucket.org/vbraun/libgap
 Source0:	https://bitbucket.org/vbraun/libgap/downloads/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libtool
 BuildRequires:	gap-devel
 BuildRequires:	gap-libs
